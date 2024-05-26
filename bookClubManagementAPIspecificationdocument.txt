@@ -1,0 +1,206 @@
+# Book Club Management API
+
+## Introduction
+The Book Club Management API facilitates the organization and management of book clubs, including meeting scheduling, book selections, member discussions, and reading progress tracking. It provides endpoints for CRUD operations to handle various aspects of book club management.
+
+## Base URL
+`http://localhost:8081/api`
+
+## Endpoints
+
+### 1. Create a New Book Club Meeting
+
+**HTTP Method:** `POST`
+
+**Endpoint:** `/meetings`
+
+**Description:** Allows the creation of new book club meetings and selection of books.
+
+**Request Headers:**
+- `Content-Type: application/json`
+
+**Request Body:**
+```json
+{
+  "date": "2024-06-10",
+  "time": "18:00",
+  "book": {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald"
+  }
+}
+```
+
+**Responses:**
+
+- **201 Created:**
+  ```json
+  {
+    "id": 1,
+    "date": "2024-06-10",
+    "time": "18:00",
+    "book": {
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald"
+    },
+    "status": "Scheduled"
+  }
+  ```
+- **400 Bad Request:** Invalid input
+
+---
+
+### 2. View Meeting Schedules
+
+**HTTP Method:** `GET`
+
+**Endpoint:** `/meetings`
+
+**Description:** View the schedules of all book club meetings.
+
+**Request Headers:**
+- `Accept: application/json`
+
+**Responses:**
+
+- **200 OK:**
+  ```json
+  [
+    {
+      "id": 1,
+      "date": "2024-06-10",
+      "time": "18:00",
+      "book": {
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald"
+      },
+      "status": "Scheduled"
+    },
+    {
+      "id": 2,
+      "date": "2024-06-17",
+      "time": "19:00",
+      "book": {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee"
+      },
+      "status": "Scheduled"
+    }
+  ]
+  ```
+- **204 No Content:** No meetings found
+
+---
+
+### 3. Read Book Details
+
+**HTTP Method:** `GET`
+
+**Endpoint:** `/books/{id}`
+
+**Description:** View details of a book selected for a book club meeting.
+
+**Path Parameters:**
+- `id` (integer): ID of the book
+
+**Request Headers:**
+- `Accept: application/json`
+
+**Responses:**
+
+- **200 OK:**
+  ```json
+  {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "description": "A novel about the American Dream and the excesses of the Jazz Age."
+  }
+  ```
+- **404 Not Found:** Book not found
+
+---
+
+### 4. Update Meeting Schedule
+
+**HTTP Method:** `PUT`
+
+**Endpoint:** `/meetings/{id}`
+
+**Description:** Update the schedule or book selection of a book club meeting.
+
+**Path Parameters:**
+- `id` (integer): ID of the meeting
+
+**Request Headers:**
+- `Content-Type: application/json`
+
+**Request Body:**
+```json
+{
+  "date": "2024-06-15",
+  "time": "17:30",
+  "book": {
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen"
+  }
+}
+```
+
+**Responses:**
+
+- **200 OK:**
+  ```json
+  {
+    "id": 1,
+    "date": "2024-06-15",
+    "time": "17:30",
+    "book": {
+      "title": "Pride and Prejudice",
+      "author": "Jane Austen"
+    },
+    "status": "Scheduled"
+  }
+  ```
+- **400 Bad Request:** Invalid input
+- **404 Not Found:** Meeting not found
+
+---
+
+### 5. Delete Book Club Meeting
+
+**HTTP Method:** `DELETE`
+
+**Endpoint:** `/meetings/{id}`
+
+**Description:** Cancel a book club meeting.
+
+**Path Parameters:**
+- `id` (integer): ID of the meeting
+
+**Responses:**
+
+- **204 No Content:** Successfully canceled
+- **404 Not Found:** Meeting not found
+
+---
+
+### 6. Remove Inactive Book Club
+
+**HTTP Method:** `DELETE`
+
+**Endpoint:** `/clubs/{id}`
+
+**Description:** Remove an inactive book club.
+
+**Path Parameters:**
+- `id` (integer): ID of the book club
+
+**Responses:**
+
+- **204 No Content:** Successfully removed
+- **404 Not Found:** Book club not found
+
+---
+
+## Summary
+The Book Club Management API enables the creation, scheduling, and management of book club meetings, including book selections and member discussions. It provides endpoints for creating, reading, updating, and deleting meetings and book clubs, facilitating efficient book club organization and administration.
