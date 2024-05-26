@@ -19,7 +19,7 @@ jobs:
       - name: Set up Java version
         uses: actions/setup-java@v1
         with:
-          java-version: '21'
+          java-version: '21' # Set up Java version 21
 
       - name: Build with Maven
         run: mvn clean install
@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'bookclubmanagement-uacs'
           slot-name: 'production'
-          package: '*.jar'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_35200d58280f4cdca4250c386c846ed2 }}
+          package: ${{ github.workspace }}/target/*.jar 
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_35200d58280f4cdca4250c386c846ed2 }} 
